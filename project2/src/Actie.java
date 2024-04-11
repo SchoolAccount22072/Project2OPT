@@ -11,7 +11,7 @@ public class Actie {
         this.scanner = scanner;
     }
 
-    public void uitvoeren() throws IOException {
+    public void voerInfoIn() throws IOException {
         System.out.println("Hallo");
     }
 }

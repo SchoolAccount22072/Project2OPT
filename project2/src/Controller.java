@@ -35,7 +35,7 @@ public class Controller {
                     scanner.nextLine();
                     Invoer invoer = new Invoer(scanner);
                     if (invoerKeuze == 1) {
-                        invoer.uitvoeren();
+                        invoer.voerInfoIn();
                     } else if (invoerKeuze == 2) {
                         invoer.bestaandeInvoerBekijken();
                     } else {
@@ -43,10 +43,10 @@ public class Controller {
                     }
                     break;
                 case 2:
-                    new Countdown(scanner).uitvoeren();
+                    new Countdown(scanner).voerInfoIn();
                     break;
                 case 3:
-                    new Rapportage(scanner).uitvoeren();
+                    new Rapportage(scanner).voerInfoIn();
                     break;
                 default:
                     System.out.println("Ongeldige optie. Probeer opnieuw.");

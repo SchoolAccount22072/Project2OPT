@@ -47,7 +47,7 @@ public class Invoer extends Actie {
     }
 
     @Override
-    public void uitvoeren() throws IOException {
+    public void voerInfoIn() throws IOException {
         System.out.println("Voer de naam in:");
         String naam = scanner.nextLine();
         System.out.println("Voer de datum in (MM/dd/yyyy):");

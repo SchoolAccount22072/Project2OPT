@@ -13,13 +13,18 @@ class Countdown extends Actie {
     }
 
     @Override
-    public void uitvoeren() throws IOException {
+    public void voerInfoIn() throws IOException {
         List<String> regels = readAllLines(Paths.get(bestand));
 
         LocalDate vandaag = LocalDate.now();
 
         for (String regel : regels) {
-            String[] delen = regel.split(",");
+            String nextlines = regel.trim();
+            if (nextlines.isEmpty()) {
+                continue;
+            }
+
+            String[] delen = nextlines.split(",");
             if (delen.length >= 2) {
                 String naam = delen[0];
                 LocalDate datum = LocalDate.parse(delen[1], formatter);

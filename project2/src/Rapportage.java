@@ -11,7 +11,7 @@ public class Rapportage extends Actie {
     }
 
     @Override
-    public void uitvoeren() throws IOException {
+    public void voerInfoIn() throws IOException {
         List<String> regels = readAllLines(Paths.get(bestand));
 
         for (String regel : regels) {
