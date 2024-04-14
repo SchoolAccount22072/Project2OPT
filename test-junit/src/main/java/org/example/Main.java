@@ -1,4 +1,3 @@
-
 package org.example;
 import java.util.Scanner;
 import java.io.IOException;
@@ -15,13 +14,11 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
         Gebruiker currentGebruiker;
-
-        // Providing user choice based on predefined user profiles
         System.out.println("Kies gebruiker:");
         System.out.println("1. Student (Mike)");
         System.out.println("2. Docent (Marcel)");
         int userChoice = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline left-over
+        scanner.nextLine();
 
         if (userChoice == 1) {
             currentGebruiker = new Student();
@@ -31,7 +28,7 @@ public class Main {
             System.out.println("Welkom Marcel!");
         } else {
             System.out.println("Ongeldige keuze. Probeer opnieuw.");
-            return; // Exit if the user input is invalid
+            return;
         }
 
         Menu menu = currentGebruiker.createMenu(scanner);
@@ -40,15 +37,14 @@ public class Main {
 }
 
 class Gebruiker {
-    String naam = "Jay Bhageloe";
-    String baan = "Schoonmaak";
-    int leeftijd = 20;
-    String studienaam = "Informatica";
+    public String naam = "Jay Bhageloe";
+    public String baan = "Schoonmaak";
+    public int leeftijd = 20;
+    public String studienaam = "Informatica";
 
     Menu createMenu(Scanner scanner){
         return new Menu(scanner);
     }
-
 }
 class Student extends Gebruiker {
     public Student() {
@@ -57,8 +53,6 @@ class Student extends Gebruiker {
         this.leeftijd = 21;
         this.studienaam = "Software Engineering";
     }
-
-
 }
 class Docent extends Gebruiker {
     public Docent() {
@@ -67,8 +61,6 @@ class Docent extends Gebruiker {
         this.leeftijd = 40;
         this.studienaam = null;
     }
-
-
 }
 
 
@@ -127,7 +119,7 @@ class Deadline {
     public String naam;
     public LocalDate datum;
     public String extraInformatie;
-    public String bestand = "deadline.csv";  // This will be set by subclasses
+    public String bestand = "deadline.csv";
     public Scanner scanner;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
@@ -172,17 +164,17 @@ class Project extends Deadline {
 
     @Override
     public void voerInfoIn() throws IOException {
-        voerNaamIn();  // Get project name
+        voerNaamIn();
         System.out.println("Voer de datum in (dd-MM-yyyy):");
         String datumInput = scanner.nextLine();
-        datum = LocalDate.parse(datumInput, formatter);  // Parse date
+        datum = LocalDate.parse(datumInput, formatter);
 
         System.out.println("Voer extra informatie in:");
         extraInformatie = scanner.nextLine();
 
         System.out.println("Voer de groepsgrootte in:");
         groepsgrootte = scanner.nextInt();
-        scanner.nextLine();  // Consume newline left after the integer input
+        scanner.nextLine();
 
         System.out.println("Voer het projectonderwerp in:");
         projectOnderwerp = scanner.nextLine();
@@ -190,7 +182,6 @@ class Project extends Deadline {
         System.out.println("Voer de projectbeschrijving in:");
         projectBeschrijving = scanner.nextLine();
 
-        // Combine all information into a single string
         String nieuweRegel = String.format("%s,%s,%s,%d,%s,%s",
                 naam,
                 datum.format(formatter),
@@ -199,7 +190,6 @@ class Project extends Deadline {
                 projectOnderwerp,
                 projectBeschrijving) + "\n";
 
-        // Write the combined information to the CSV in one line
         Files.write(Paths.get(bestand), nieuweRegel.getBytes(), StandardOpenOption.APPEND, StandardOpenOption.CREATE);
         System.out.println("Projectinformatie toegevoegd aan " + bestand);
     }
@@ -286,10 +276,8 @@ class Rapportage extends Deadline {
 
     @Override
     public void voerInfoIn() throws IOException {
-        // List of files to report from
         String[] files = {"deadline.csv", "project.csv", "toets.csv"};
 
-        // Iterate over each file and print its contents
         for (String file : files) {
             System.out.println("\nInhoud van " + file + ":");
             try {
@@ -301,7 +289,6 @@ class Rapportage extends Deadline {
                         String datum = parts[1];
                         String extraInfo = parts[2];
                         System.out.printf("%s, Datum: %s, Extra Info: %s%n", naam, datum, extraInfo);
-                        // If there are more details specific to projects or tests, print them too
                         if (file.equals("project.csv") && parts.length > 5) {
                             System.out.printf("Groepsgrootte: %s, Onderwerp: %s, Beschrijving: %s%n", parts[3], parts[4], parts[5]);
                         } else if (file.equals("toets.csv") && parts.length > 6) {
